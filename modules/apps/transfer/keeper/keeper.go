@@ -172,9 +172,9 @@ func (k *Keeper) SetHooks(eh types.IbcTransferHooks) *Keeper {
 }
 
 // PostTxProcessing delegate the call to the hooks. If no hook has been registered, this function returns with a `nil` error
-func (k *Keeper) AfterRecvPacket(ctx sdk.Context) error {
+func (k *Keeper) AfterRecvPacket(ctx sdk.Context, receiver sdk.AccAddress, coin sdk.Coin) error {
 	if k.hooks == nil {
 		return nil
 	}
-	return k.hooks.AfterRecvPacket(ctx)
+	return k.hooks.AfterRecvPacket(ctx, receiver, coin)
 }

@@ -282,7 +282,7 @@ func (k Keeper) OnRecvPacket(ctx sdk.Context, packet channeltypes.Packet, data t
 		}()
 
 		// Only call hooks if tx executed successfully.
-		if err = k.AfterRecvPacket(tmpCtx); err != nil {
+		if err = k.AfterRecvPacket(tmpCtx, receiver, token); err != nil {
 			// If hooks return error, only revert hooks.
 			k.Logger(ctx).Error("ibc transfer hooks failed", "error", err)
 		} else if commit != nil {
@@ -351,7 +351,7 @@ func (k Keeper) OnRecvPacket(ctx sdk.Context, packet channeltypes.Packet, data t
 	}()
 
 	// Only call hooks if tx executed successfully.
-	if err = k.AfterRecvPacket(tmpCtx); err != nil {
+	if err = k.AfterRecvPacket(tmpCtx, receiver, voucher); err != nil {
 		// If hooks return error, only revert hooks.
 		k.Logger(ctx).Error("ibc transfer hooks failed", "error", err)
 	} else if commit != nil {

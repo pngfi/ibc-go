@@ -54,5 +54,5 @@ type PortKeeper interface {
 
 // IbcTransferHooks event hooks for ibcTransfer
 type IbcTransferHooks interface {
-	AfterRecvPacket(ctx sdk.Context) error
+	AfterRecvPacket(ctx sdk.Context, receiver sdk.AccAddress, coin sdk.Coin) error
 }

@@ -18,9 +18,9 @@ func NewMultiIbcTransferHooks(hooks ...types.IbcTransferHooks) MultiIbcTransferH
 }
 
 // AfterRecvPacket delegate the call to underlying hooks
-func (mh MultiIbcTransferHooks) AfterRecvPacket(ctx sdk.Context) error {
+func (mh MultiIbcTransferHooks) AfterRecvPacket(ctx sdk.Context, reciver sdk.AccAddress, voucher sdk.Coin) error {
 	for i := range mh {
-		if err := mh[i].AfterRecvPacket(ctx); err != nil {
+		if err := mh[i].AfterRecvPacket(ctx, reciver, voucher); err != nil {
 			return sdkerrors.Wrapf(err, "EVM hook %T failed", mh[i])
 		}
 	}
